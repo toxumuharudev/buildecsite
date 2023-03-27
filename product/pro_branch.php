@@ -41,4 +41,3 @@ if(isset($_POST["delete"]) === true) {
     header("Location:pro_delete.php?code=".$code);
     exit();
 }
-?>

@@ -55,32 +55,44 @@ session_regenerate_id(true);
     }
     ?>
 
-    登録情報を修正します。
-    <br><br>
-    <form action="member_edit_check.php" method="post" enctype="multipart/form-data">
-        <?php require_once("../common./common.php"); ?>
-        お名前<br>
-        <input type="text" name="name" value="<?php print $rec['name']; ?>">
-        <br><br>
-        email<br>
-        <input type="text" name="email" value="<?php print $rec['email']; ?>">
-        <br><br>
-        住所<br>
-        <input type="text" name="address" value="<?php print $rec['address']; ?>">
-        <br><br>
-        tel<br>
-        <input type="text" name="tel" value="<?php print $rec['tel']; ?>">
-        <br><br>
-        パスワード<br>
-        <input type="password" name="pass">
-        <br><br>
-        パスワード再入力<br>
-        <input type="password" name="pass2">
-        <br><br>
-        <input type="hidden" name="code" value="<?php print $rec['code']; ?>">
-        <input type="button" onclick="history.back()" value="戻る">
-        <input type="submit" value="OK">
-    </form>
+    <div class="container mb-3">
+        <div class="mb-5">
+            <h3>
+                アカウント情報の修正
+            </h3>
+        </div>
+
+        <form action="member_edit_check.php" method="post" enctype="multipart/form-data">
+            <?php require_once("../common./common.php"); ?>
+
+            <div class="mb-3">
+                <label class="form-label">お名前</label>
+                <input type="text" class="form-control" name="name" value="<?php print $rec['name']; ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" value="<?php print $rec['email']; ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">住所</label>
+                <input type="text" class="form-control" name="address" value="<?php print $rec['address']; ?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">TEL</label>
+                <input type="text" class="form-control" name="tel" value="<?php print $rec['tel']; ?>">
+            </div>
+
+            <input type="hidden" name="code" value="<?php print $rec['code']; ?>">
+            <div class="mb-3">
+                <button type="button" class="btn btn-outline-secondary" onclick="history.back()">戻る</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            <!-- 
+            <input type="button" onclick="history.back()" value="戻る">
+            <input type="submit" value="OK"> -->
+        </form>
+    </div>
 
     <?php include '../include/script.html'; ?>
 </body>

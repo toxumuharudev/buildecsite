@@ -47,6 +47,11 @@ session_regenerate_id(true);
         $user = $_["userid"];
         $password = $_["password"];
 
+        // https://jsstudy.hatenablog.com/entry/PHP-error-message_bracket-operator-not-supported-for-strings
+        $name = NULL;
+        $price = NULL;
+        $gazou = NULL;
+
         $dbh = new PDO($dsn, $user, $password);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -58,6 +63,7 @@ session_regenerate_id(true);
             $stmt->execute($data);
 
             $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
             $name[] = $rec["name"];
             $price[] = $rec["price"];

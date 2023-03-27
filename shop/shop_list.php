@@ -45,12 +45,14 @@ session_regenerate_id(true);
         $stmt->execute();
 
         $dbh = null;
-
+        print '<div class="container mb-3">';
         print "販売商品一覧";
         print " <a href='shop_cartlook.php'>カートを見る</a>";
         print "<br><br>";
 
         while (true) {
+            print '<div class="border border-secondary border-1 rounded p-3 mb-3">';
+
             $rec = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($rec === false) {
                 break;
@@ -60,7 +62,7 @@ session_regenerate_id(true);
             if (empty($rec["gazou"]) === true) {
                 $gazou = "";
             } else {
-                $gazou = "<img src='../product/gazou/" . $rec['gazou'] . "'>";
+                $gazou = "<img class='img-fluid' src='../product/gazou/" . $rec['gazou'] . "'>";
             }
             print $gazou;
             print "<br>";
@@ -70,9 +72,10 @@ session_regenerate_id(true);
             print "<br>";
             print "詳細:" . $rec["explanation"];
             print "</a>";
-            print "<br><br>";
+            print '</div>';
         }
         print "<br>";
+        print '</div>';
     } catch (Exception $e) {
         print "只今障害が発生しております。<br><br>";
         print "<a href='../staff/staff_login.php'>ログイン画面へ</a>";

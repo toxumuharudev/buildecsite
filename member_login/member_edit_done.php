@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include '../include/bootstrap.html' ?>
-    <title>アカウント情報修正登録</title>
+    <title>アカウント情報修正完了</title>
 </head>
 
 <?php
@@ -27,7 +27,6 @@ session_regenerate_id(true);
         $email = $post["email"];
         $address = $post["address"];
         $tel = $post["tel"];
-        $pass = $post["pass"];
 
         // azure database login
         $azure_mysql_connstr = $_SERVER["MYSQLCONNSTR_localdb"];
@@ -48,18 +47,21 @@ session_regenerate_id(true);
 
         $dbh = new PDO($dsn, $user, $password);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-        $sql = "UPDATE member SET name=?, email=?, address=?, tel=?, password=? WHERE code=?";
+        $sql = "UPDATE member SET name=?, email=?, address=?, tel=? WHERE code=?";
         $stmt = $dbh->prepare($sql);
         $data[] = $name;
         $data[] = $email;
         $data[] = $address;
         $data[] = $tel;
-        $data[] = $pass;
         $data[] = $code;
+
+        $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
         $dbh = null;
+        $_SESSION["member_name"] = $name;
     } catch (Exception $e) {
         print $e->getMessage();
         print "<br>";
@@ -68,8 +70,17 @@ session_regenerate_id(true);
     }
     ?>
 
-    修正完了しました。<br><br>
-    <a href="../shop/shop_list.php">TOPへ</a>
+    <div class="container">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check text-success" viewBox="0 0 16 16">
+                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+            </svg>
+            修正完了しました。
+        </div>
+        <div class="align-self-center p-2">
+            <a href="../shop/shop_list.php" class="btn btn-primary" role="button">TOPへ</a>
+        </div>
+    </div>
 
     <?php include '../include/script.html'; ?>
 </body>
